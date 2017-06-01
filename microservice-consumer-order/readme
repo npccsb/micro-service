@@ -1,0 +1,9 @@
+1.消费端demo
+
+2.调用FeignClient
+  Feign客户端自定义配置
+
+3.调用Ribbo负载均衡
+  Ribbon自定义配置
+
+4.断路器

@@ -1,0 +1,44 @@
+eureka:
+  client:
+    healthcheck:
+      enabled: true #开启健康检查, 这个参数好像没啥用
+    service-url:
+      defaultZone: http://user1:password1@eureka-ha-1:8761/eureka,http://user1:password1@eureka-ha-2:8762/eureka #这个地方比较恶心啊，居然要写一堆
+  instance:
+    prefer-ip-address: true #默认是false
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
+#这个比较重要哦，默认是false, 不对feign客户端进行Hystrix监控，老版本也没这个问题
+feign.hystrix.enabled: true 
+#/health界面的其他值，奇葩了，老版本这些都没问题，新版本默认值都变了
+management.security.enabled: false
+---
+spring:
+  profiles: consumer-order-8100
+  application:
+    name: microservice-consumer-order
+server:
+  port: 8100
+
+---
+spring:
+  profiles: consumer-order-8101
+  application:
+    name: microservice-consumer-order
+server:
+  port: 8101
+  
+---
+spring:
+  profiles: consumer-movie-8102
+  application:
+    name: microservice-consumer-movie
+server:
+  port: 8102
+
+---
+spring:
+  profiles: consumer-movie-8103
+  application:
+    name: microservice-consumer-movie
+server:
+  port: 8103
