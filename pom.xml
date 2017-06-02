@@ -16,6 +16,7 @@
 	  <module>microservice-dashboard</module>
 	  <module>microservice-turbine</module>
 	  <module>microservice-api-gateway-zuul</module>
+	  <module>microservice-api-gateway-sidecar</module>
 	</modules>
 	
 	
