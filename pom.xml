@@ -17,6 +17,8 @@
 	  <module>microservice-turbine</module>
 	  <module>microservice-api-gateway-zuul</module>
 	  <module>microservice-api-gateway-sidecar</module>
+	  <module>microservice-config-server</module>
+	  <module>microservice-consumer-order-config</module>
 	</modules>
 	
 	

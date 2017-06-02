@@ -1,0 +1,30 @@
+management.security.enabled: false
+
+server:
+  port: 8080
+spring:
+  application:
+    name: microservice-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: http://git.oschina.net/xiaoxiongbixia/config-center      # 配置Git仓库的地址
+          username: # Git仓库的账号，开源库不需要配置
+          password: # Git仓库的密码
+          search-paths: '{application}' #我觉得这种方法是最实用的
+    bus:
+      trace:
+        enabled: true     # 开启cloud bus的跟踪
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    service-url:
+      defaultZone: http://user1:password1@eureka-ha-1:8761/eureka,http://user1:password1@eureka-ha-2:8762/eureka #这个地方比较恶心啊，居然要写一堆
+  instance:
+    prefer-ip-address: true #默认是false
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
