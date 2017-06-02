@@ -1,20 +1,18 @@
-package com.microservice.base.client;
+package com.microservice.base.client.base;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.springframework.stereotype.Component;
 
 import com.microservice.base.entity.ComplexBean1;
 import com.microservice.base.entity.ComplexBean2;
 import com.microservice.base.entity.Role;
 import com.microservice.base.entity.User;
 
-@Component
-public class FeignFallback3 implements UserFeignClient3 {
+public class SpringFallback implements BasicSpringFeignClient{
 
-	private String error = "hystrix user feign client3";
+	public String error = "fallback for spring feign client. ";
+	
 	@Override
 	public User getUser(Long id) {
 		User u = new User();
@@ -111,8 +109,13 @@ public class FeignFallback3 implements UserFeignClient3 {
 	}
 
 	@Override
-	public String testHystrix(String arg) {
-		return error;
+	public String exception(String arg){
+		return error + arg;
 	}
-	
+
+	@Override
+	public String overtime(Long second){
+		return error + second;
+	}
+
 }

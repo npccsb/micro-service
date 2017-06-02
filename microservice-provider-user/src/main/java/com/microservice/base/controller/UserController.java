@@ -26,9 +26,10 @@ import com.microservice.base.service.UserService;
 
 @RestController
 // 混合注解，相当于@ResponseBody+@Controller
+// 即以下所有的请求都等价于@ResponseBody
 public class UserController {
 	private final static Logger LOG = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	private UserService userService;
 
@@ -99,12 +100,12 @@ public class UserController {
 	 * @param ulist
 	 * @return
 	 */
-	//@RequestMapping("/user-list")
+	// @RequestMapping("/user-list")
 	@PostMapping("/user-list")
 	public List<User> testList(@RequestBody List<User> ulist) {
 		if (CollectionUtils.isNotEmpty(ulist)) {
 			for (User user : ulist) {
-				//测试类型是不是user
+				// 测试类型是不是user
 				LOG.info(user.toString());
 			}
 			return ulist;
@@ -117,12 +118,12 @@ public class UserController {
 
 	}
 
-	//@RequestMapping("/user-map")
+	// @RequestMapping("/user-map")
 	@PostMapping("/user-map")
 	public Map<Long, User> testMap(@RequestBody Map<Long, User> umap) {
 		if (MapUtils.isNotEmpty(umap)) {
 			for (User user : umap.values()) {
-				//测试类型是不是user
+				// 测试类型是不是user
 				LOG.info(user.toString());
 			}
 			return umap;
@@ -134,12 +135,12 @@ public class UserController {
 		return umap;
 	}
 
-	//@RequestMapping("/user-set")
+	// @RequestMapping("/user-set")
 	@PostMapping("/user-set")
 	public Set<User> testSet(@RequestBody Set<User> uset) {
 		if (CollectionUtils.isNotEmpty(uset)) {
 			for (User user : uset) {
-				//测试类型是不是user
+				// 测试类型是不是user
 				LOG.info(user.toString());
 			}
 			return uset;
@@ -150,9 +151,16 @@ public class UserController {
 		LOG.info(uset.toString());
 		return uset;
 	}
-	
-	@GetMapping("/test-hystrix/{arg}")
-	public String testHystrix(@PathVariable String arg) throws Exception{
-		throw new Exception();
+
+	@GetMapping("/exception/{arg}")
+	public String exception(@PathVariable("arg") String arg) throws Exception {
+		throw new Exception(arg);
 	}
+
+	@GetMapping("/overtime/{second}")
+	public String overtime(@PathVariable("second") Long second) throws Exception {
+		Thread.sleep(second * 1000);
+		return "Sleep " + second + " second OK.";
+	}
+
 }

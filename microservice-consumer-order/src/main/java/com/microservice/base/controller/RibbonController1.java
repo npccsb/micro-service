@@ -251,17 +251,26 @@ public class RibbonController1 {
 		return "error , this is hystrix " + arg;
 	}
 	
-	@GetMapping("/test-hystrix/{arg}")
-	@HystrixCommand(fallbackMethod = "default2Fallback")
-	public String testHystrix(@PathVariable String arg){
-		return restTemplate.getForObject("http://microservice-provider-user1/test-hystrix/"+arg, String.class);
+	@GetMapping("/exception/{arg}")
+	@HystrixCommand(fallbackMethod = "exceptionFallback")
+	public String exception(@PathVariable String arg){
+		return restTemplate.getForObject("http://microservice-provider-user1/exception/"+arg, String.class);
 	}
 	/**
 	 * 注意，断路器的输入输出参数都要和原方法保持一致哦
 	 * @param arg
 	 * @return
 	 */
-	public String default2Fallback(String arg){
-		return "error , this is hystrix " + arg;
+	public String exceptionFallback(String arg){
+		return "error , this is exception " + arg;
+	}
+	
+	@GetMapping("/overtime/{second}")
+	@HystrixCommand(fallbackMethod = "overtimeFallback")
+	public String overtime(@PathVariable Long second){
+		return restTemplate.getForObject("http://microservice-provider-user1/overtime/"+second, String.class);
+	}
+	public String overtimeFallback(Long second){
+		return "error, this is overtime. "+second;
 	}
 }

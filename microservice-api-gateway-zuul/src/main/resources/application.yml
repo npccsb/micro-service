@@ -9,11 +9,14 @@ eureka:
     prefer-ip-address: true #默认是false
     instance-id: ${spring.application.name}:${spring.application.instance_id:${server.port}}
 management.security.enabled: false
-#没这个配置zuul.hystrix.enabled: true
+
+variable:
+  filter-enable: false
 
 server:
-  port: 8400
+  port: 8040
   
+##routes的配置，可以参考Apache或者Nginx
 zuul:
   routes:
     route1: #这种配置，可以直接把/user/1对应到microservice-provider-user1的/user/1
@@ -24,7 +27,7 @@ zuul:
       path: /order/**
       service-id: microservice-consumer-order
     route3: #可以针对一个微服务定义多个路由
-      path: /feign1/**
+      path: /spring-feign1/**
       service-id: microservice-consumer-order
       strip-prefix: false
     route4: #可以成功到达/forward/forward1==/locale1/forward1

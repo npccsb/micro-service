@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.netflix.zuul.ZuulFilter;
@@ -20,6 +21,9 @@ import com.netflix.zuul.context.RequestContext;
 @Component
 public class LoginFilter extends ZuulFilter{
 
+	@Value("${variable.filter-enable}")
+	private Boolean filterEnable;
+	
 	@Override
 	public Object run() {
 		HttpServletRequest request = RequestContext.getCurrentContext().getRequest();
@@ -45,7 +49,7 @@ public class LoginFilter extends ZuulFilter{
 	@Override
 	public boolean shouldFilter() {
 		// TODO Auto-generated method stub
-		return true;
+		return filterEnable;
 	}
 
 	@Override

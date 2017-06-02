@@ -16,10 +16,10 @@ import java.nio.charset.Charset;
 public class UserFallbackProvider implements ZuulFallbackProvider {
   @Override
   public String getRoute() {
-    // 表明是为哪个微服务提供回退
-    //return "route5";//不能用这种名称
+    // 表明是为哪个微服务提供回退方法
+    //return "route5";//不能用这种名称, 只能用微服务的service id
     //return "microservice-provider-user1";
-	return "*";
+	return "*";//通配符
   }
 
   @Override
